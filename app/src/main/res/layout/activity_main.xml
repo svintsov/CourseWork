@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ua.codeconveyor.coursework.Presenter.MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/canvas_region">
+
+    </FrameLayout>
+    <ScrollView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#448AFF">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/add_button"
+                android:contentDescription="add"
+                android:src="@drawable/ic_action_name"
+                android:background="@drawable/button_selector"
+                android:padding="6dp"
+                android:layout_margin="6dp"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/remove_button"
+                android:contentDescription="remove"
+                android:background="@drawable/button_selector"
+                android:padding="6dp"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_remove"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/channel_button"
+                android:contentDescription="channel"
+                android:background="@drawable/button_selector"
+                android:padding="6dp"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_channel"/>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
