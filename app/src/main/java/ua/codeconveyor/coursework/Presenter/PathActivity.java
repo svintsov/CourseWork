@@ -99,25 +99,15 @@ public class PathActivity extends AppCompatActivity {
         firstRowMessage = new TableRow(this);
         secondRowMessage = new TableRow(this);
         firstRowMessage.addView(createMainColumnMSG("Message size"));
-        firstRowMessage.addView(createMainColumnMSG("Pocket size"));
-        firstRowMessage.addView(createMainColumnMSG("Header size"));
-        firstRowMessage.addView(createMainColumnMSG("Pocket number"));
-        firstRowMessage.addView(createMainColumnMSG("Pocket time"));
+        firstRowMessage.addView(createMainColumnMSG("Data pocket N "));
+        firstRowMessage.addView(createMainColumnMSG("Manage pocket N "));
         firstRowMessage.addView(createMainColumnMSG("Message time"));
-        firstRowMessage.addView(createMainColumnMSG("Message distance"));
-        firstRowMessage.addView(createMainColumnMSG("Node counter"));
-        firstRowMessage.addView(createMainColumnMSG("Header time"));
-        firstRowMessage.addView(createMainColumnMSG("Nodes delay time"));
+
         secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getMessageSize(channelMode))));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getPocketSize())));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getHeaderSize(channelMode))));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getPocketCounter())));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getPocketTime())));
+        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getInfoPocketCounter())));
+        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getSpecialPocketCounter(channelMode))));
         secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getMessageTime(channelMode))));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getMessageDistance())));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getNodeCounter())));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getHeaderTime(channelMode))));
-        secondRowMessage.addView(createSimpleColumnMSG(String.valueOf(message.getNodesDelayTime())));
+
         messageTable.addView(firstRowMessage);
         messageTable.addView(secondRowMessage);
     }

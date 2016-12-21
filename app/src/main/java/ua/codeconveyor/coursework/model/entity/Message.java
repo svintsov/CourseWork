@@ -6,14 +6,12 @@ import android.os.Parcelable;
 
 import java.util.Random;
 
-public class Message implements Parcelable{
+public class Message implements Parcelable {
 
 
     public int getMessageSize(String chanType) {
-        if (chanType.equals("MSG")){
-            return messageSize+headerSize;
-        }
-        return messageSize+headerSize*pocketCounter;
+
+        return messageSize ;
     }
 
     private int messageSize;
@@ -37,7 +35,10 @@ public class Message implements Parcelable{
     private double pocketTime;
 
     public double getMessageTime(String chanType) {
-        return messageTime + getNodesDelayTime() + getHeaderTime(chanType);
+
+        messageTime = pocketTime * (infoPocketCounter + getSpecialPocketCounter(chanType));
+
+        return messageTime;
     }
 
     private double messageTime;
@@ -59,51 +60,70 @@ public class Message implements Parcelable{
     private int nodeCounter;
 
     public double getNodesDelayTime() {
-        return 0.02*nodeCounter;
+        return 0.02 * nodeCounter;
     }
 
     public int getHeaderSize(String chanType) {
-        if (chanType.equals("MSG")){
+        if (chanType.equals("MSG")) {
             return headerSize;
         }
-        return headerSize*pocketCounter;
+        return headerSize * pocketCounter;
 
     }
 
-    private int headerSize=8;
+    private int headerSize = 8;
 
     public double getHeaderTime(String chanType) {
-        if (chanType.equals("MSG")){
+        if (chanType.equals("MSG")) {
             return headerTime;
         }
-        return headerTime*pocketCounter;
+        return headerTime * pocketCounter;
     }
 
     private double headerTime;
 
+    public int getInfoPocketCounter() {
+        return infoPocketCounter;
+    }
+
+    private int infoPocketCounter;
+
+    public int getSpecialPocketCounter(String chanType) {
+        if (chanType.equals("MSG")) {
+            specialPocketCounter = infoPocketCounter + 2 * (nodeCounter - 1);
+            return specialPocketCounter;
+        }
+        return infoPocketCounter;
+
+    }
+
+    private int specialPocketCounter;
 
 
-    public Message(int edgeWeight){
+    public Message(int edgeWeight) {
         Random random = new Random();
-        pocketSize=(int)Math.pow(2,random.nextInt(5));
-        pocketCounter=random.nextInt(10)+1;
-        messageSize = pocketSize*pocketCounter;
-        pocketTime=(double)edgeWeight/10;
-        messageTime=pocketTime*pocketCounter;
-        headerTime=messageTime/10;
-        messageDistance=edgeWeight;
+        pocketSize = (int) Math.pow(2, random.nextInt(10));
+        pocketCounter = random.nextInt(10) + 1;
+        infoPocketCounter = pocketCounter;
+        messageSize = pocketSize * infoPocketCounter;
+        pocketTime = (double) edgeWeight / 10;
+        messageTime = pocketTime * pocketCounter;
+        headerTime = messageTime / 10;
+        messageDistance = edgeWeight;
     }
 
     protected Message(Parcel in) {
-        messageSize=in.readInt();
-        pocketSize=in.readInt();
-        pocketCounter=in.readInt();
-        pocketTime=in.readDouble();
-        messageTime=in.readDouble();
-        messageDistance=in.readInt();
-        headerSize=in.readInt();
-        headerTime=in.readDouble();
-        nodeCounter=in.readInt();
+        messageSize = in.readInt();
+        pocketSize = in.readInt();
+        pocketCounter = in.readInt();
+        pocketTime = in.readDouble();
+        messageTime = in.readDouble();
+        messageDistance = in.readInt();
+        headerSize = in.readInt();
+        headerTime = in.readDouble();
+        nodeCounter = in.readInt();
+        specialPocketCounter = in.readInt();
+        infoPocketCounter = in.readInt();
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -134,5 +154,7 @@ public class Message implements Parcelable{
         dest.writeInt(headerSize);
         dest.writeDouble(headerTime);
         dest.writeInt(nodeCounter);
+        dest.writeInt(specialPocketCounter);
+        dest.writeInt(infoPocketCounter);
     }
 }
